@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bookshelf Azmifauzy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+  </head>
+  <body>
+    
+    <div id="content" class="overflow-hidden mt-lg-5">
+            <div class="row">
+                <div class="col-12 m-auto col-lg-8">
+                    <div class="card border-0 shadow-lg my-lg-5">
+                        <div class="card-header p-0 overflow-hidden">
+                            <div class="row text-center">
+                                <div class="col-6 px-0">
+                                    <a type="button" class="py-3 text-decoration-none bg-primary d-block text-black text-white fw-bold text-uppercase" data-bs-toggle="collapse" data-bs-target="#belumDibaca" id="btnBelumDibaca">Belum Dibaca</a>
+                                </div>
+                                <div class="col-6 px-0">
+                                    <a type="button" class="py-3 text-decoration-none d-block text-black text-uppercase" data-bs-toggle="collapse" data-bs-target="#sudahDibaca" id="btnSudahDibaca">Sudah Dibaca</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="row g-3">
+                                <div class="col-lg-2 col-6">
+                                    <button class="btn btn-primary w-100 d-inline" type="button" data-bs-toggle="modal" data-bs-target="#modalTambahBuku">Tambah Buku</button>
+                                </div>
+                                <div class="col">
+                                  <input type="text" class="form-control" id="keyword" placeholder="Cari buku..." aria-label="Cari buku...">
+                                </div>
+                            </div>
+                            
+                            <div class="collapse" id="sudahDibaca">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Judul</th>
+                                        <th scope="col">Penulis</th>
+                                        <th scope="col">Tahun</th>
+                                        <th scope="col">Selesai?</th>
+                                        <th scope="col">Aksi</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tableBodySudahDibaca">
+                                    </tbody>
+                                  </table>
+                            </div>
+                            <div class="collapse show" id="belumDibaca">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Judul</th>
+                                        <th scope="col">Penulis</th>
+                                        <th scope="col">Tahun</th>
+                                        <th scope="col">Selesai?</th>
+                                        <th scope="col">Aksi</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="tableBodyBelumDibaca">
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modalTambahBuku" tabindex="-1" aria-labelledby="modalTambahBukuLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalTambahBukuLabel">Tambah Buku</h5>
+            <button type="button" class="btn-close" id="btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12">
+                  <form>
+                      <div class="mb-3">
+                          <label for="judulBuku" class="form-label">Judul Buku</label>
+                          <input type="text" name="judulBuku" class="form-control inputAddBook" id="judulBuku" placeholder="Masukkan judul buku" required>
+                          <small class="text-danger fst-italic"></small>
+                      </div>
+                      <div class="mb-3">
+                          <label for="penulis" class="form-label">Penulis</label>
+                          <input type="text" name="penulis" class="form-control inputAddBook" id="penulis" placeholder="Masukkan nama penulis" required>
+                          <small class="text-danger fst-italic"></small>
+                        </div>
+                      <div class="mb-3">
+                          <label for="tahun" class="form-label">Tahun</label>
+                          <input type="number" name="tahun" class="form-control inputAddBook" id="tahun" placeholder="Masukkan tahun buku" required>
+                          <small class="text-danger fst-italic"></small>
+                        </div>
+                      <div class="mb-3 form-check">
+                          <input type="checkbox" name="iscomplete" class="form-check-input inputAddBook" id="isComplete">
+                          <label class="form-check-label" for="isComplete">Sudah Dibaca</label>
+                      </div>
+                      <button type="submit" class="btn btn-warning" id="btnListBuku">List Buku</button>
+                  </form>
+                </div>
+              </div>
+              <div class="row mt-3 d-none" id="rowTableListBook">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header"><b>List Buku yang akan Ditambahkan</b></div>
+                    <div class="card-body">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Judul</th>
+                            <th scope="col">Penulis</th>
+                            <th scope="col">Tahun</th>
+                            <th scope="col">Selesai?</th>
+                            <th scope="col">Aksi</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                          
+                        </tbody>
+                      </table>
+                      <button class="btn btn-primary" id="btnSimpan">Simpan Semua</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modalEditBuku" tabindex="-1" aria-labelledby="modalEditBukuLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="modalEditBukuLabel">Edit Buku</h5>
+            <button type="button" class="btn-close" id="btnClose" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-12">
+                  <form>
+                      <div class="mb-3">
+                        <label for="judulBuku" class="form-label">Judul Buku</label>
+                        <input type="text" name="judulBuku" class="form-control inputEditBook" id="judulBuku" placeholder="Masukkan judul buku" required>
+                        <small class="text-danger fst-italic"></small>
+                      </div>
+                      <div class="mb-3">
+                          <label for="penulis" class="form-label">Penulis</label>
+                          <input type="text" name="penulis" class="form-control inputEditBook" id="penulis" placeholder="Masukkan nama penulis" required>
+                          <small class="text-danger fst-italic"></small>
+                      </div>
+                      <div class="mb-3">
+                          <label for="tahun" class="form-label">Tahun</label>
+                          <input type="number" name="tahun" class="form-control inputEditBook" id="tahun" placeholder="Masukkan tahun buku" required>
+                          <small class="text-danger fst-italic"></small>
+                        </div>
+                      <div class="mb-3 form-check">
+                          <input type="checkbox" name="iscomplete" class="form-check-input inputEditBook" id="isCompleteEditBook">
+                          <label class="form-check-label" for="isCompleteEditBook">Sudah Dibaca</label>
+                        </div>
+                      <button type="submit" class="btn btn-primary" id="btnUpdateBuku">Update Buku</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>
