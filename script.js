@@ -90,6 +90,12 @@
                                     <td>
                                       <button class="btn btn-sm btn-danger" id="btnHapusBuku" data-id="${data.id}"><i class="bi bi-trash" id="btnHapusBuku" data-id="${data.id}"></i></button>
                                       <button class="btn btn-sm btn-primary" id="btnEditBuku" data-id="${data.id}" type="button" data-bs-toggle="modal" data-bs-target="#modalEditBuku"><i class="bi bi-pencil-square" id="btnEditBuku" data-id="${data.id}" type="button" data-bs-toggle="modal" data-bs-target="#modalEditBuku"></i></button>
+                                      ${ data.isComplete == false ? 
+                                      `<button class="btn btn-sm btn-success" id="btnMoveRak" data-id="${data.id}" type="button" ><i class="bi bi-arrow-left-right" id="btnMoveRak" data-id="${data.id}" type="button" ></i> Pindah Rak</button>`
+                                        : 
+                                        `<button class="btn btn-sm btn-success" id="btnMoveRak" data-id="${data.id}" type="button" ><i class="bi bi-arrow-left-right" id="btnMoveRak" data-id="${data.id}" type="button" ></i> Pindah Rak</button>`
+                                      }
+                                      
                                     </td>
                                   </tr>`
             });
@@ -143,6 +149,23 @@
             return e.id === Number(param)
           }))
           allBooks.splice(indeksByParam, 1)
+          setBook()
+          getBook()
+        }
+
+        function moveRak(param) {
+          getBook()
+          let indeksByParam = allBooks.findIndex((function (e) {
+            return e.id === Number(param)
+          }))
+          const newData = {
+              id: Number(param),
+              title: allBooks[indeksByParam]["title"],
+              author: allBooks[indeksByParam]["author"],
+              year: Number(allBooks[indeksByParam]["year"]),
+              isComplete: allBooks[indeksByParam]["isComplete"] == true ? false : true
+          };
+          allBooks[indeksByParam] = newData
           setBook()
           getBook()
         }
@@ -217,6 +240,27 @@
               } else {
                 inputEditBook[3].removeAttribute('checked')
               }
+            }
+
+            if(e.target.id === "btnMoveRak") {
+              e.preventDefault()
+              Swal.fire({
+                    title: 'Pindah Rak?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, move it!'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        moveRak(e.target.getAttribute('data-id'))
+                        Swal.fire(
+                        'Terupdate!',
+                        'Data Buku telah Terupdate.',
+                        'success'
+                        )
+                    }
+                })
             }
 
             if(e.target.id === "btnUpdateBuku") {
